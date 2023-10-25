@@ -16,6 +16,7 @@ plugins=(
 )
 
 source $ZSH/oh-my-zsh.sh
+source $ZSH/goto.sh
 
 # User configuration
 export PATH="$HOME/go/bin/:$PATH"
