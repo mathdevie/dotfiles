@@ -10,6 +10,7 @@ plugins=(git zsh-autosuggestions zsh-syntax-highlighting fast-syntax-highlightin
 
 source $ZSH/oh-my-zsh.sh
 source $ZSH/custom/goto/goto.sh
+source <(fzf --zsh)
 
 # User configuration
 export PATH="$HOME/go/bin/:$PATH"
