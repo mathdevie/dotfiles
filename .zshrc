@@ -21,6 +21,10 @@ setopt HIST_IGNORE_SPACE
 # Trim excessive whitespace from commands before adding to history
 setopt HIST_REDUCE_BLANKS
 
+# Limit space taken by autocompletion
+zstyle -e ':autocomplete:*:*' list-lines 'reply=( $(( LINES / 3 )) )'
+
 if [ "$TERM_PROGRAM" != "Apple_Terminal" ]; then
   eval "$(oh-my-posh init zsh --config $HOME/.oh-my-posh/config.omp.json)"
 fi
+
