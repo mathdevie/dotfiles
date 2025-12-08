@@ -25,6 +25,10 @@ setopt HIST_REDUCE_BLANKS
 zstyle -e ':autocomplete:*:*' list-lines 'reply=( $(( LINES / 3 )) )'
 
 if [ "$TERM_PROGRAM" != "Apple_Terminal" ]; then
-  eval "$(oh-my-posh init zsh --config $HOME/.oh-my-posh/config.omp.json)"
+  if [ "$TERM_PROGRAM" = "vscode" ]; then
+    eval "$(oh-my-posh init zsh --config $HOME/.oh-my-posh/config-minimal.omp.json)"
+  else
+    eval "$(oh-my-posh init zsh --config $HOME/.oh-my-posh/config.omp.json)"
+  fi
 fi
 
