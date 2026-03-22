@@ -13,7 +13,7 @@ source $ZSH/custom/goto/goto.sh
 source <(fzf --zsh)
 
 # User configuration
-export PATH="$HOME/go/bin/:$PATH"
+export PATH="$HOME/.local/bin:$HOME/go/bin/:$PATH"
 
 # Do not put commands in history if they begin with a SPACE
 setopt HIST_IGNORE_SPACE
