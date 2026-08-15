@@ -17,7 +17,7 @@ if [ -n "$TERM_PROGRAM" ] && [ "$TERM_PROGRAM" != "vscode" ]; then
   plugins+=(zsh-autocomplete)
 fi
 
-plugins+=(zsh-autosuggestions fast-syntax-highlighting)
+plugins+=(zsh-autosuggestions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 source $ZSH/custom/goto/goto.sh
@@ -44,4 +44,7 @@ elif [ "$TERM_PROGRAM" = "vscode" ] || [ -z "$TERM_PROGRAM" ]; then
 else
   eval "$(oh-my-posh init zsh --config $HOME/.oh-my-posh/config.omp.json)"
 fi
+
+# Load machine-local secrets without tracking them in this repository.
+[[ -r "$HOME/.secrets/zsh.env" ]] && source "$HOME/.secrets/zsh.env"
 
