@@ -48,3 +48,5 @@ fi
 # Load machine-local secrets without tracking them in this repository.
 [[ -r "$HOME/.secrets/zsh.env" ]] && source "$HOME/.secrets/zsh.env"
 
+# bun completions
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
