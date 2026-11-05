@@ -1,7 +1,3 @@
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
 export ZSH="$HOME/.oh-my-zsh"
 
 # Standard plugins can be found in $ZSH/plugins/
@@ -25,6 +21,14 @@ source <(fzf --zsh)
 
 # User configuration
 export PATH="$HOME/.local/bin:$HOME/go/bin/:$PATH"
+
+# Node via fnm (brew install fnm): switches version on cd from .nvmrc /
+# .node-version (searching parent dirs), else uses `fnm default`.
+# Must come AFTER the PATH line above so fnm's node wins over the node that
+# other tools (e.g. Hermes) symlink into ~/.local/bin.
+if command -v fnm >/dev/null; then
+  eval "$(fnm env --use-on-cd --version-file-strategy=recursive --shell zsh)"
+fi
 
 # Do not put commands in history if they begin with a SPACE
 setopt HIST_IGNORE_SPACE
