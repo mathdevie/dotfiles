@@ -39,7 +39,6 @@ if (( $+commands[eza] )); then
   alias l='la'
   alias tree='eza --tree --git-ignore'
 fi
-(( $+commands[bat] ))    && alias cat='bat --paging=never --style=plain'
 (( $+commands[zoxide] )) && eval "$(zoxide init zsh)"
 (( $+commands[direnv] )) && eval "$(direnv hook zsh)"
 (( $+commands[atuin] ))  && eval "$(atuin init zsh --disable-up-arrow --disable-ai)"  # AI mode hijacks `?`
