@@ -16,7 +16,6 @@ fi
 plugins+=(zsh-autosuggestions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
-source $ZSH/custom/goto/goto.sh
 source <(fzf --zsh)
 
 # User configuration
@@ -30,11 +29,13 @@ if command -v fnm >/dev/null; then
   eval "$(fnm env --use-on-cd --version-file-strategy=recursive --shell zsh)"
 fi
 
-# Do not put commands in history if they begin with a SPACE
-setopt HIST_IGNORE_SPACE
-
-# Trim excessive whitespace from commands before adding to history
-setopt HIST_REDUCE_BLANKS
+# History. oh-my-zsh already sets share_history, hist_ignore_dups and
+# extended_history (and caps SAVEHIST at 10k); these go on top.
+HISTSIZE=100000
+SAVEHIST=100000
+setopt HIST_IGNORE_SPACE     # commands starting with a space aren't recorded
+setopt HIST_IGNORE_ALL_DUPS  # re-running a command drops its older copy
+setopt HIST_REDUCE_BLANKS    # trim excess whitespace before saving
 
 # Limit space taken by autocompletion
 zstyle -e ':autocomplete:*:*' list-lines 'reply=( $(( LINES / 3 )) )'
@@ -51,3 +52,20 @@ fi
 
 # bun completions
 [ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
+
+# CLI tools (all in the Brewfile; each is skipped if not installed).
+# Keep this block LAST: zoxide, direnv and atuin all hook the prompt/cd and
+# want to load after everything else; atuin must come after fzf to own Ctrl-R.
+if (( $+commands[eza] )); then
+  alias ls='eza --group-directories-first'
+  alias l='eza -la --git --group-directories-first'
+  alias ll='eza -l --git --group-directories-first'
+  alias la='eza -la --git --group-directories-first'
+  alias tree='eza --tree --git-ignore'
+fi
+(( $+commands[bat] ))    && alias cat='bat --paging=never --style=plain'
+(( $+commands[zoxide] )) && eval "$(zoxide init zsh)"    # z <partial>, zi = pick with fzf
+(( $+commands[direnv] )) && eval "$(direnv hook zsh)"    # per-project .envrc
+# atuin: Ctrl-R only. Keep the up arrow for zsh-autocomplete, and skip atuin's
+# hosted AI prompt (it would otherwise take over `?` on an empty line).
+(( $+commands[atuin] ))  && eval "$(atuin init zsh --disable-up-arrow --disable-ai)"
