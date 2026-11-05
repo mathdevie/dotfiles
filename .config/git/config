@@ -1,0 +1,27 @@
+# Shared git config (tracked in dotfiles). Git reads this BEFORE ~/.gitconfig,
+# so machine-specific settings (maintenance repos, includeIf for work, signing)
+# stay in ~/.gitconfig and can override anything here. `git config --global`
+# writes to ~/.gitconfig, so this file only changes when edited on purpose.
+
+[user]
+	name = Math Ha Sum
+	email = hi@math.dev
+
+[core]
+	pager = delta
+
+[interactive]
+	diffFilter = delta --color-only
+
+[delta]
+	navigate = true    # n / N to jump between files in a diff
+	line-numbers = true
+
+[merge]
+	conflictStyle = zdiff3
+
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
