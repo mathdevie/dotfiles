@@ -19,6 +19,7 @@ _darcs
 
 ^/README.*
 ^/Brewfile.*
+^/assets
 ^/LICENSE.*
 ^/COPYING
 .DS_Store
