@@ -1,6 +1,6 @@
-. "$HOME/.cargo/env"
+typeset -U path PATH
 
-# Load machine-local secrets without tracking them in this repository.
-# .zshenv runs for every shell (including non-interactive), so tools invoked
-# outside an interactive session still see these variables.
-[[ -r "$HOME/.secrets/zsh.env" ]] && source "$HOME/.secrets/zsh.env"
+[ -r "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
+
+# Untracked secrets
+[ -r "$HOME/.secrets/zsh.env" ] && source "$HOME/.secrets/zsh.env"

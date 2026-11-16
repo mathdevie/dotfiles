@@ -18,6 +18,8 @@ _darcs
 \#.*\#       # emacs autosave files
 
 ^/README.*
+^/Brewfile.*
+^/assets
 ^/LICENSE.*
 ^/COPYING
 .DS_Store
