@@ -1,24 +1,22 @@
 export ZSH="$HOME/.oh-my-zsh"
 
-# zsh-autocomplete garbles the line in xterm.js terminals (VS Code, T3 Code), so real terminals only
-plugins=(git)
-[[ -n $TERM_PROGRAM && $TERM_PROGRAM != vscode ]] && plugins+=(zsh-autocomplete)
-plugins+=(zsh-autosuggestions zsh-syntax-highlighting)  # highlighter must stay last
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting)  # highlighting must stay last
 
 source $ZSH/oh-my-zsh.sh
 source <(fzf --zsh)
+# fzf opens under the prompt instead of full screen; Ctrl-T previews files with bat
+export FZF_DEFAULT_OPTS="--height 40% --layout reverse --border"
+export FZF_CTRL_T_OPTS="--preview 'bat --color=always --style=numbers --line-range :40 {}'"
 
 export PATH="$HOME/.local/bin:$PATH"
 
-# After PATH, so fnm's node wins over any node in ~/.local/bin
+# fnm has faster loads than nvm
 (( $+commands[fnm] )) && eval "$(fnm env --use-on-cd --version-file-strategy=recursive --shell zsh)"
 
 # oh-my-zsh only keeps 10k lines
 HISTSIZE=100000
 SAVEHIST=100000
 setopt HIST_IGNORE_SPACE HIST_IGNORE_ALL_DUPS HIST_REDUCE_BLANKS
-
-zstyle -e ':autocomplete:*:*' list-lines 'reply=( $(( LINES / 3 )) )'
 
 # No prompt theme in Apple Terminal; glyph-free one where there's no Nerd Font
 if [[ $TERM_PROGRAM == Apple_Terminal ]]; then

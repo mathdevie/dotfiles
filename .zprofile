@@ -1,5 +1,3 @@
-# Login shells (new terminal tabs): PATH only, everything else is in .zshrc
-
 [ -x /opt/homebrew/bin/brew ] && eval "$(/opt/homebrew/bin/brew shellenv)"
 
 export PATH="$HOME/.local/bin:$PATH"
